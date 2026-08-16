@@ -1,0 +1,43 @@
+import java.lang.*;
+import java.util.*;
+
+class Solution 
+{
+    
+    public int maxMeetings(int[] start, int[] end) 
+    {
+       Integer[] indices=new Integer[end.length];
+       int[] sortedstart=new int[start.length];
+       int[] sortedend=new int[end.length];
+       int lastend=0;
+       int maxMeetings=1;
+
+       for(int i=0;i<end.length;i++)
+        indices[i]=i;
+       
+       //Arrays.Sort(indices,(a,b)->Integer.compare(end[a],end[b]));
+       Arrays.sort(indices, (a, b) -> Integer.compare(end[a], end[b]));
+
+
+       for(int i=0;i<indices.length;i++)
+       {
+          sortedstart[i]=start[indices[i]];
+          sortedend[i]=end[indices[i]];
+       }
+       
+       lastend=sortedend[0];
+
+       for(int j=1;j<sortedend.length;j++)
+       {
+         
+         if(lastend<sortedstart[j])
+         {
+            maxMeetings++;
+            lastend=sortedend[j];
+         }
+            
+       }
+
+        return maxMeetings;
+    }
+}
